@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SOURCE_DIR="/mnt/project-data/application"
+EFS_DIR="/mnt/efs/project"
 BACKUP_DIR="/home/ec2-user/backups"
 S3_BUCKET="rohit-automated-web-backup-2026"
 S3_PATH="s3://$S3_BUCKET/backups"
@@ -13,7 +14,7 @@ echo "Starting backup..."
 mkdir -p "$BACKUP_DIR"
 
 echo "Creating compressed backup..."
-tar -czf "$BACKUP_FILE" "$SOURCE_DIR"
+tar -czf "$BACKUP_FILE" "$SOURCE_DIR" "$EFS_DIR"
 
 if [ $? -ne 0 ]; then
     echo "Backup creation failed."
